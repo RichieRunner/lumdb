@@ -1,3 +1,4 @@
 {
-  "editor.smoothScrolling": true
+  "editor.smoothScrolling": true,
+  "editor.mouseWheelScrollSensitivity": 1
 }
