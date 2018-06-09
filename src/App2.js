@@ -1,5 +1,5 @@
 /* eslint react/no-did-mount-set-state: 0 */
-import React, { Fragment } from 'react';
+import React, { Component, Fragment, createContext } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,19 +9,44 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import { Toggle } from './Utils';
+import User from './User';
+import { UserContext } from './UserContext';
+
+
+class UserProvider extends Component {
+  state = {
+    id: '123',
+    name: 'Carlos',
+  };
+
+  render() {
+    return (
+      <UserContext.Provider
+        value={{
+          user: this.state,
+        }}
+      >
+        {this.props.children}
+      </UserContext.Provider>
+    )
+  }
+}
 
 const App = () => (
   <Router>
-    <div className="Appp">
-      <Toggle>
-        {({ on, toggle }) => (
-          <Fragment>
-            {on && <h1>Show Me</h1>}
-            <button onClick={toggle}>Show/Hide</button>
-          </Fragment>
-        )}
-      </Toggle>
-    </div>
+    <UserProvider>
+      <div className="Appp">
+        <User />
+        <Toggle>
+          {({ on, toggle }) => (
+            <Fragment>
+              {on && <h1>Show Me</h1>}
+              <button onClick={toggle}>Show/Hide</button>
+            </Fragment>
+          )}
+        </Toggle>
+      </div>
+    </UserProvider>
   </Router>
 );
 
